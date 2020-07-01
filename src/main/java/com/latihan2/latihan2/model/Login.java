@@ -1,9 +1,22 @@
 package com.latihan2.latihan2.model;
 
-public class AuthenticateModel {
+public class Login {
+
+    @Override
+    public String toString() {
+        return "AuthenticateModel{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 
     private String username;
     private String password;
+
+    public Login(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public String getUsername() {
         return username;
@@ -19,13 +32,5 @@ public class AuthenticateModel {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Override
-    public String toString() {
-        return "AuthenticateModel{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
     }
 }

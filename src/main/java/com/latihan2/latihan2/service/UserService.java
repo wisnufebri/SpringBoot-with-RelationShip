@@ -1,7 +1,6 @@
 package com.latihan2.latihan2.service;
 
 
-
 import com.latihan2.latihan2.model.User;
 import com.latihan2.latihan2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +26,28 @@ public class UserService {
         return usersRepository.findById(id);
     }
 
-    public User insertUsers(User body) {
+    public boolean deleteUser(int id) {
+        User result = usersRepository.findById(id);
+        if (result != null) {
+            try {
+                usersRepository.delete(result);
+                return true;
+            } catch (Exception E) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public User add(User body) {
 
         User result = usersRepository.save(body);
 
         return result;
     }
 
-    public boolean updateSiswa(User body) {
+    public boolean edit(User body) {
         User result = usersRepository.findById(body.getId());
 
         if (result != null) {
@@ -49,7 +62,6 @@ public class UserService {
             System.out.println("users tidak ada");
             return false;
         }
-
     }
 
 }
