@@ -1,4 +1,4 @@
-package com.latihan2.latihan2.model;
+package com.latihan2.tugas4.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
