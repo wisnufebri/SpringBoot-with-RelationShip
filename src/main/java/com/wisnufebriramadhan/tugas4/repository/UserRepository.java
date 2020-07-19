@@ -1,6 +1,6 @@
-package com.latihan2.tugas4.repository;
+package com.wisnufebriramadhan.tugas4.repository;
 
-import com.latihan2.tugas4.model.User;
+import com.wisnufebriramadhan.tugas4.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

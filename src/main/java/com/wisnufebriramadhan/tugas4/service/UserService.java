@@ -1,8 +1,8 @@
-package com.latihan2.tugas4.service;
+package com.wisnufebriramadhan.tugas4.service;
 
 
-import com.latihan2.tugas4.model.User;
-import com.latihan2.tugas4.repository.UserRepository;
+import com.wisnufebriramadhan.tugas4.model.User;
+import com.wisnufebriramadhan.tugas4.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

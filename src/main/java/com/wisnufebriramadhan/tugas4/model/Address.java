@@ -1,4 +1,4 @@
-package com.latihan2.tugas4.model;
+package com.wisnufebriramadhan.tugas4.model;
 
 
 import javax.persistence.*;

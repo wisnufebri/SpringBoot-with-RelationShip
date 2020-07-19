@@ -1,8 +1,8 @@
-package com.latihan2.tugas4.controller;
+package com.wisnufebriramadhan.tugas4.controller;
 
-import com.latihan2.tugas4.model.User;
-import com.latihan2.tugas4.repository.UserRepository;
-import com.latihan2.tugas4.service.UserService;
+import com.wisnufebriramadhan.tugas4.model.User;
+import com.wisnufebriramadhan.tugas4.repository.UserRepository;
+import com.wisnufebriramadhan.tugas4.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
