@@ -1,37 +1,49 @@
 package com.wisnufebriramadhan.tugas4.controller;
 
+import com.wisnufebriramadhan.tugas4.model.Address;
 import com.wisnufebriramadhan.tugas4.model.User;
 import com.wisnufebriramadhan.tugas4.repository.UserRepository;
 import com.wisnufebriramadhan.tugas4.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api")
 public class UserController {
 
-    //take data from package repository interface UserRepository
     @Autowired
     UserRepository userRepository;
-
-    //find serive to here
     @Autowired
     UserService service;
 
-    //get function for password
-
-    //take all data from table user
-    @GetMapping("/")
-    public List<User> all() {
-        return userRepository.findAll();
+    @GetMapping
+    public List<User> getAllUser(@RequestParam(value = "pageNo", defaultValue = "0") Integer pageNo,
+                                 @RequestParam(value = "sortKey", defaultValue = "address") String sortKey) {
+        return service.getAllUser(pageNo, sortKey);
     }
 
-    //take data from table by something
+    @GetMapping("/address/{address}")
+    public List<Address> getUserbyAddress(@PathVariable String address){
+        return service.getAddress(address);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteUser(@PathVariable int id) {
+        service.deleteUser(id);
+    }
+
     @GetMapping("/getBy")
     User findByUsername(@RequestParam String username) {
 
@@ -39,15 +51,11 @@ public class UserController {
         return result;
     }
 
-    //add or insert new data to table
     @PostMapping("/add")
     public User add(@RequestBody User body) {
-
-        User result = userRepository.save(body);
-        return result;
+        return service.saveBody(body);
     }
 
-    //edit or update data from table
     @PutMapping("/edit")
     public Map<String, Object> edit(@RequestBody User body) {
         System.out.println("body : " + body.toString());
@@ -64,15 +72,14 @@ public class UserController {
         return result;
     }
 
-    //delete data from table
-    @DeleteMapping("/delete")
-    Map<String, Object> delete(@RequestParam int id) {
-        Map<String, Object> result = new HashMap<>();
-        if (service.deleteUser(id)) {
-            result.put("Berhasil", true);
-        } else {
-            result.put("Gagal", false);
-        }
-        return result;
-    }
+//    @DeleteMapping("/delete")
+//    Map<String, Object> delete(@RequestParam int id) {
+//        Map<String, Object> result = new HashMap<>();
+//        if (service.deleteUser(id)) {
+//            result.put("Berhasil", true);
+//        } else {
+//            result.put("Gagal", false);
+//        }
+//        return result;
+//    }
 }

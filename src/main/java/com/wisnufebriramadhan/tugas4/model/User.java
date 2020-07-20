@@ -1,5 +1,7 @@
 package com.wisnufebriramadhan.tugas4.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,25 +9,53 @@ import java.util.List;
 @Entity
 @Table(name = "user")
 public class User {
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "id")
+    private Address address;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
-    String username, password, name;
-
-    @ElementCollection
-    List<String> roles = new ArrayList<>();
-
+    private int id;
+    private String username;
+    @JsonIgnore
+    private String password;
+    private String name;
+    private String role;
+    private String email;
     boolean active;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "address=" + address +
+                ", id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", role='" + role + '\'' +
+                ", email='" + email + '\'' +
+                ", active=" + active +
+                '}';
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
     public User() {
     }
 
-    public User(int id, String username, String password, String name, List<String> roles, boolean active) {
+    public User(int id, String username, String password, String name, String role, String email, boolean active) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.name = name;
-        this.roles = roles;
+        this.role = role;
+        this.email = email;
         this.active = active;
     }
 
@@ -61,12 +91,20 @@ public class User {
         this.name = name;
     }
 
-    public List<String> getRoles() {
-        return roles;
+    public String getRole() {
+        return role;
     }
 
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public boolean isActive() {
@@ -76,4 +114,5 @@ public class User {
     public void setActive(boolean active) {
         this.active = active;
     }
+
 }
