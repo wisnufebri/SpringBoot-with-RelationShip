@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -38,11 +38,18 @@ public class UserController {
         return service.getAddress(address);
     }
 
-    @DeleteMapping("/delete/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public void deleteUser(@PathVariable int id) {
-        service.deleteUser(id);
+
+    @DeleteMapping("delete")
+    Map<String, Object> deleteUser(@RequestParam int id) {
+        Map<String, Object> result = new HashMap<>();
+        if (service.delete(id)) {
+            result.put("Success", true);
+        } else {
+            result.put("Gagal", false);
+        }
+        return result;
     }
+
 
     @GetMapping("/getBy")
     User findByUsername(@RequestParam String username) {
@@ -71,15 +78,4 @@ public class UserController {
         }
         return result;
     }
-
-//    @DeleteMapping("/delete")
-//    Map<String, Object> delete(@RequestParam int id) {
-//        Map<String, Object> result = new HashMap<>();
-//        if (service.deleteUser(id)) {
-//            result.put("Berhasil", true);
-//        } else {
-//            result.put("Gagal", false);
-//        }
-//        return result;
-//    }
 }

@@ -48,17 +48,19 @@ public class UserService {
         return usersRepository.findByUsername(username);
     }
 
-    public Address findByaddress(String address) {
-        return addressRepository.findByAddress(address);
-    }
 
-    public User findByUserId(int id) {
-        return usersRepository.findById(id);
-    }
-
-
-    public void deleteUser(int id) {
-        usersRepository.deleteById(id);
+    public boolean delete(int id){
+        User result = usersRepository.findById(id);
+        if (result != null){
+            try{
+                usersRepository.delete(result);
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 
     public User saveBody(User user) {
@@ -85,9 +87,7 @@ public class UserService {
 
     public boolean edit(User body) {
         User result = usersRepository.findById(body.getId());
-
         if (result != null) {
-            System.out.println("users ada");
             try {
                 usersRepository.save(body);
                 return true;
@@ -95,7 +95,6 @@ public class UserService {
                 return false;
             }
         } else {
-            System.out.println("users tidak ada");
             return false;
         }
     }

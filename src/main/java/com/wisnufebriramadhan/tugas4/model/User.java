@@ -3,53 +3,36 @@ package com.wisnufebriramadhan.tugas4.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 @Entity
-@Table(name = "user")
-public class User {
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "id")
-    private Address address;
-
+@Table(name="user")
+@Access(value=AccessType.FIELD)
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+
     private String username;
     @JsonIgnore
     private String password;
+
     private String name;
+
     private String role;
+
     private String email;
     boolean active;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Address address;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "address=" + address +
-                ", id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", role='" + role + '\'' +
-                ", email='" + email + '\'' +
-                ", active=" + active +
-                '}';
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
 
     public User() {
     }
 
-    public User(int id, String username, String password, String name, String role, String email, boolean active) {
+    public User(int id, String username, String password, String name, String role, String email, boolean active, Address address) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -57,6 +40,7 @@ public class User {
         this.role = role;
         this.email = email;
         this.active = active;
+        this.address = address;
     }
 
     public int getId() {
@@ -115,4 +99,25 @@ public class User {
         this.active = active;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", role='" + role + '\'' +
+                ", email='" + email + '\'' +
+                ", active=" + active +
+                ", address=" + address +
+                '}';
+    }
 }
